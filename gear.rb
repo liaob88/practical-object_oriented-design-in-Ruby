@@ -15,7 +15,12 @@ class Gear
   def gear_inches
     # ギアインチ＝車輪の直径*ギア比
     # 車輪の直径＝リムの直径+タイヤの厚みの2倍
-    (rim + (tire * 2)) * ratio 
+    diameter * ratio
+  end
+
+  private
+  def diameter
+    rim + (tire * 2)
   end
 end
 
