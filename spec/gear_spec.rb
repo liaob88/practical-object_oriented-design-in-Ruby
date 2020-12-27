@@ -8,10 +8,23 @@ RSpec.describe Gear do
     end
   end
   context 'gear class' do
-    it 'gear_inches' do
-      expect(Gear.new(:chainring => 52, :cog => 11, :wheel => wheel).gear_inches).to be(137.0909090909091)
-    end
+    describe 'initialize method' do
+      it 'when :chainring is not provided, the value of @chainring is 40, which is the dafault value of @chainring' do
+        gear = Gear.new(:cog => 18, :wheel => wheel)
+        expect(gear.chainring).to be(40)
+      end
 
+      it 'when :chainring is nil, the value of @chainring is nil' do
+        gear = Gear.new(:chainring => nil, :cog => 18, :wheel => wheel)
+        expect(gear.chainring).to be nil
+      end
+
+      it 'when :cog is not provided, the value of @cog is nil' do
+        gear = Gear.new(:chainring => 52, :wheel => wheel)
+        expect(gear.cog).to be nil
+      end
+    end
+    
     it 'be able to get ratio without wheel and order dependency' do
       expect(Gear.new(:cog => 11, :chainring => 52).ratio).to be(4.7272727272727275)
     end
