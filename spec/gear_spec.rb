@@ -9,11 +9,11 @@ RSpec.describe Gear do
   end
   context 'gear class' do
     it 'gear_inches' do
-      expect(Gear.new(52, 11, wheel).gear_inches).to be(137.0909090909091)
+      expect(Gear.new(:chainring => 52, :cog => 11, :wheel => wheel).gear_inches).to be(137.0909090909091)
     end
 
-    it 'ratio without wheel' do
-      expect(Gear.new(52, 11).ratio).to be(4.7272727272727275)
+    it 'be able to get ratio without wheel and order dependency' do
+      expect(Gear.new(:cog => 11, :chainring => 52).ratio).to be(4.7272727272727275)
     end
   end
 end
