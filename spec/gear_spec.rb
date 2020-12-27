@@ -19,8 +19,13 @@ RSpec.describe Gear do
         expect(gear.chainring).to be nil
       end
 
-      it 'when :cog is not provided, the value of @cog is nil' do
+      it 'when :cog is not provided, the value of @cog is 18, which is the dafault value of @chainring' do
         gear = Gear.new(:chainring => 52, :wheel => wheel)
+        expect(gear.cog).to be 18
+      end
+
+      it 'when :cog is nil, the value of @cog is nil' do
+        gear = Gear.new(:chainring => 52, :cog => nil, :wheel => wheel)
         expect(gear.cog).to be nil
       end
     end
