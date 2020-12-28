@@ -1,10 +1,11 @@
 class Gear
   attr_reader :chainring, :cog, :wheel
 
-  def initialize(chainring, cog, wheel=nil)
-    @chainring = chainring
-    @cog = cog
-    @wheel = wheel
+  def initialize(args)
+    args = defaults.merge(args)
+    @chainring = args[:chainring]
+    @cog = args[:cog]
+    @wheel = args[:wheel]
   end
 
   def ratio
@@ -14,7 +15,18 @@ class Gear
   def gear_inches
     # ギアインチ＝車輪の直径*ギア比
     # 車輪の直径＝リムの直径+タイヤの厚みの2倍
-    wheel.diameter * ratio
+    diameter * ratio
+  end
+
+  def diameter
+    wheel.diameter
+  end
+
+  def defaults
+    {
+      chainring: 40,
+      cog: 18
+    }
   end
 end
 
@@ -33,9 +45,3 @@ class Wheel
     diameter * Math::PI
   end
 end
-
-@wheel = Wheel.new(26, 1.5)
-puts @wheel.circumference # => 91.106186954104
-
-puts Gear.new(52, 11, @wheel).gear_inches # => 137.0909090909091
-puts Gear.new(52, 11).ratio # => 4.7272727272727275
